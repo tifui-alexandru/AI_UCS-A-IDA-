@@ -4,29 +4,29 @@ import time
 class Lacat:
     # clasa pentru un lacat -> nodul grafului din problema noastra
     def __init__(self, incuietori):
-        self.incuiecori = incuietori
+        self.incuietori = incuietori
 
     def __eq__(self, other):
-        return self.incuiecori == other.incuiecori
+        return self.incuietori == other.incuietori
 
     def __str__(self):
-        temp = ['inc(' + x[0] + ', ' + str(x[1]) + ')' for x in self.incuiecori]
+        temp = ['inc(' + x[0] + ', ' + str(x[1]) + ')' for x in self.incuietori]
         return "[" + ", ".join(str(i) for i in temp) + "]"
 
     def aplica_cheie(self, cheie):
     # returneaza un lacat nou
-        if len(cheie) != len(self.incuiecori):
+        if len(cheie) != len(self.incuietori):
             print("Numar diferit de zone si incuietori")
             exit(1)
 
         new_incuietori = []
         for i in range(len(cheie)):
-            stare = self.incuiecori[i][0]
-            nr_incuieri = self.incuiecori[i][1]
+            stare = self.incuietori[i][0]
+            nr_incuieri = self.incuietori[i][1]
 
             if cheie[i] == 'd':
-                if self.incuiecori[i][0] == 'i':
-                    if self.incuiecori[i][1] == 1:
+                if self.incuietori[i][0] == 'i':
+                    if self.incuietori[i][1] == 1:
                         stare = 'd'
                         nr_incuieri = 0
                     else:
@@ -135,7 +135,7 @@ class Alg:
     def __dead_state(self):
         # functie care verifica daca problema are solutii
         # daca pentru o incuietoare nu exista chei care sa o deschida, atunci problema nu are solutii
-        for i in range(len(self.gr.start.incuiecori)):
+        for i in range(len(self.gr.start.incuietori)):
             for cheie in self.gr.lista_chei:
                 if cheie[i] == 'd':
                     break

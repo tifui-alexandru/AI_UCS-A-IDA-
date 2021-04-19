@@ -1,27 +1,32 @@
 import argparse
+import time
 
 class Lacat:
     # clasa pentru un lacat -> nodul grafului din problema noastra
     def __init__(self, incuietori):
-        self.incuiecori = incuietori
+        self.incuietori = incuietori
+
+    def __eq__(self, other):
+        return self.incuietori == other.incuietori
 
     def __str__(self):
-        return ['inc(' + x[0] + ', ' + str(x[1]) + ')' for x in self.incuiecori]
+        temp = ['inc(' + x[0] + ', ' + str(x[1]) + ')' for x in self.incuietori]
+        return "[" + ", ".join(str(i) for i in temp) + "]"
 
     def aplica_cheie(self, cheie):
     # returneaza un lacat nou
-        if len(cheie) != len(self.incuiecori):
+        if len(cheie) != len(self.incuietori):
             print("Numar diferit de zone si incuietori")
             exit(1)
 
         new_incuietori = []
         for i in range(len(cheie)):
-            stare = self.incuiecori[i][0]
-            nr_incuieri = self.incuiecori[i][1]
+            stare = self.incuietori[i][0]
+            nr_incuieri = self.incuietori[i][1]
 
             if cheie[i] == 'd':
-                if self.incuiecori[i][0] == 'i':
-                    if self.incuiecori[i][1] == 0:
+                if self.incuietori[i][0] == 'i':
+                    if self.incuietori[i][1] == 1:
                         stare = 'd'
                         nr_incuieri = 0
                     else:
@@ -41,27 +46,27 @@ class NodParcurgere:
         self.parinte = parinte
         self.cost = cost
         self.euristica = euristica
-        self.total = self.cost + self.euristica
+        self.total = cost + euristica
 
-        def obtine_drum(self):
-            ans = []
-            node = self
+    def obtine_drum(self):
+        ans = []
+        node = self
 
-            while node is not None:
-                ans.insert(0, node.info)
-                node = node.parinte
+        while node is not None:
+            ans.insert(0, node.info)
+            node = node.parinte
 
-            return ans
+        return ans
 
-        def contine_in_drum(self, info_nod_nou):
-            node = self
+    def contine_in_drum(self, info_nod_nou):
+        node = self
 
-            while node is not None:
-                if node.info == info_nod_nou:
-                    return True
-                node = node.parinte
+        while node is not None:
+            if node.info == info_nod_nou:
+                return True
+            node = node.parinte
 
-            return False
+        return False
 
 
 class Graf:
@@ -75,57 +80,148 @@ class Graf:
         # aplicam cheile la nodul curent pentru a obtine noduri noi
         return [nod_curent.aplica_cheie(k) for k in self.lista_chei]
 
-    def calculeaza_euristica(self, node):
-        # calculeaza euristica pentru un nod din graf
+    def __calculeaza_euristica1(self, lacat):
+        # euristica banala
         return 0
+
+    def __calculeaza_euristica2(self, lacat):
+        # admisibila
+        # minimul de chei necesar pentru a descuia o incuietoare
+        ans = lacat.incuietori[0][1]
+        for inc in lacat.incuietori:
+            if inc[1] < ans:
+                ans = inc[1]
+        return ans
+
+    def __calculeaza_euristica3(self, lacat):
+        # admisibila
+        # maximul de chei necesar pentru a descuia o incuietoare
+        ans = lacat.incuietori[0][1]
+        for inc in lacat.incuietori:
+            if inc[1] > ans:
+                ans = inc[1]
+        return ans
+
+    def __calculeaza_euristica4(self, lacat):
+        # inadmisibila
+        # suma numarului de chei necesare pentru a descuia fiecare incuietoare in parte
+        ans = 0
+        for inc in lacat.incuietori:
+            ans += inc[1]
+        return ans
+
+    def calculeaza_euristica(self, lacat, no_euristica):
+        # functie care calculeaza o eutistica pentru un nod
+        if no_euristica == 1:
+            return self.__calculeaza_euristica1(lacat)
+        elif no_euristica == 2:
+            return self.__calculeaza_euristica2(lacat)
+        elif no_euristica == 3:
+            return self.__calculeaza_euristica3(lacat)
+        else:
+            return self.__calculeaza_euristica4(lacat)
 
 class Alg:
     # clasa care rezolva problema
-    def __init__():
-        self.parser = argparse.ArgumentParser()
+    def __init__(self):
+        parser = argparse.ArgumentParser()
         parser.add_argument('input_file')
         parser.add_argument('output_file')
         parser.add_argument('nr_solutii')
         parser.add_argument('timeout')
+        parser.add_argument('tip_euristica')
+        self.fin = open(parser.parse_args().input_file, "r")
+        self.fout = open(parser.parse_args().output_file, "w")
+        self.nsol = int(parser.parse_args().nr_solutii)
+        self.timeout = float(parser.parse_args().timeout)
+        self.no_nodes = 0
+        self.tip_euristica = int(parser.parse_args().tip_euristica)
+
+    def __del__(self):
+        self.fin.close()
+        self.fout.close()
 
     def read_data(self):
         # citim din fisierul dat ca parametru si instantiem clasa graf
-        file_name = self.parser.parse_args().input_file
-
-        fin = open(file_name, "r")
-        lista_chei = fin.read().strip().split()
-        fin.close()
+        lista_chei = self.fin.read().strip().split()
 
         start = [('i', 1)] * len(lista_chei[0])
         scop = [('d', 0)] * len(lista_chei[0])
 
-        self.gr = Graf(start, scop, lista_chei)
+        self.gr = Graf(Lacat(start), Lacat(scop), lista_chei)
+
+    def __get_time(self):
+        # functie care intoarce durata de la inceperea algoritmului
+        return time.time() - self.start_time
 
 
-    def afiseaza_drum(self, drum):
+    def afiseaza_drum(self, drum, sol_crt):
         # afisam drumul in fisierul de output dat ca parametru
-        file_name = self.parser.parse_args().output_file
+        self.fout.write("Solutia cu numarul " + str(sol_crt) + "\n")
+        self.fout.write("Numarul de chei folosite este " + str(len(drum) - 1) + "\n")
+        self.fout.write("Cautarea a durat " + str(self.__get_time()) + " secunde\n")
+        self.fout.write("Am generat in total " + str(self.no_nodes) + " noduri\n\n")
 
-        fout = open(file_name, "w")
-        fout.write("Initial: " + drum[0] + "\n\n")
+        self.fout.write("Initial: " + str(drum[0]) + "\n\n")
 
-        for idx in len(drum):
-            fout.write(str(idx) + ") \t\t incuietori: " + drum[idx] + "\n")
+        for idx in range(len(drum)):
+            self.fout.write(str(idx) + ") \t\t incuietori: " + str(drum[idx]) + "\n")
 
-        fout.write("\nScop: " + drum[-1])
+        self.fout.write("\n\nScop: " + str(drum[-1]) + "\n\n\n")
+
+    def __timeout(self):
+        # functie care imi spune daca am luat timeout
+        now = time.time()
+        return self.start_time + self.timeout < now
+
+    def afiseaza_timeout(self, sol_crt):
+        self.fout.write("Am luat timeout cautand solutia cu numarul " + str(sol_crt) +" :(\n")
+
+    def __dead_state(self):
+        # functie care verifica daca problema are solutii
+        # daca pentru o incuietoare nu exista chei care sa o deschida, atunci problema nu are solutii
+        for i in range(len(self.gr.start.incuietori)):
+            for cheie in self.gr.lista_chei:
+                if cheie[i] == 'd':
+                    break
+            else:
+                return True
+        return False
 
     def a_star(self):
-        q = [NodParcurgere(self.gr.start, None, 0, self.gr.calculeaza_h(gr.start))]
+        self.start_time = time.time()
+        sol_crt = 0
+
+        if self.__dead_state():
+            # daca nu putem ajunge la solutie ne optim
+            self.fout.write("Nu putem ajunge la solutie folosind cheile date\n")
+            return
+
+        q = [NodParcurgere(self.gr.start, None, 0, self.gr.calculeaza_euristica(self.gr.start, self.tip_euristica))]
+        self.no_nodes = 1
 
         while len(q) > 0:
             curr_node = q.pop(0)
 
-            if self.gr.scop == curr_node:
-                afiseaza_drum(self, curr_node.obtine_drum())
+            if self.__timeout():
+                self.afiseaza_timeout(sol_crt + 1)
+                break
 
-            succesori = self.gr.genereaza_succesori(curr_node)
+            if self.gr.scop == curr_node.info:
+                self.afiseaza_drum(curr_node.obtine_drum(), sol_crt + 1)
+                sol_crt += 1
+                if self.nsol == sol_crt:
+                    break
+
+            succesori = self.gr.genereaza_succesori(curr_node.info)
             for lacat in succesori:
-                next_node = NodParcurgere(lacat, curr_node, curr_node.cost + 1, self.gr.calculeaza_h(lacat))
+                next_node = NodParcurgere(lacat, curr_node, curr_node.cost + 1, self.gr.calculeaza_euristica(lacat, self.tip_euristica))
+
+                if curr_node.contine_in_drum(lacat):
+                    # daca avem deja nodul in drum, nu merita sa il consideram succesor
+                    continue
+
+                self.no_nodes += 1
 
                 for pos in range(len(q)):
                     if q[pos].total >= next_node.total:

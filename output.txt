@@ -1,6 +1,6 @@
 Solutia cu numarul 1
 Numarul de chei folosite este 3
-Cautarea a durat 0.00022149085998535156 secunde
+Cautarea a durat 0.00032138824462890625 secunde
 Am generat in total 42 noduri
 
 Initial: [inc(i, 1), inc(i, 1), inc(i, 1)]
@@ -9,6 +9,42 @@ Initial: [inc(i, 1), inc(i, 1), inc(i, 1)]
 1) 		 incuietori: [inc(i, 1), inc(d, 0), inc(i, 1)]
 2) 		 incuietori: [inc(d, 0), inc(i, 1), inc(d, 0)]
 3) 		 incuietori: [inc(d, 0), inc(d, 0), inc(d, 0)]
+
+
+Scop: [inc(d, 0), inc(d, 0), inc(d, 0)]
+
+
+Solutia cu numarul 2
+Numarul de chei folosite este 3
+Cautarea a durat 0.0004999637603759766 secunde
+Am generat in total 62 noduri
+
+Initial: [inc(i, 1), inc(i, 1), inc(i, 1)]
+
+0) 		 incuietori: [inc(i, 1), inc(i, 1), inc(i, 1)]
+1) 		 incuietori: [inc(d, 0), inc(i, 2), inc(d, 0)]
+2) 		 incuietori: [inc(d, 0), inc(i, 1), inc(d, 0)]
+3) 		 incuietori: [inc(d, 0), inc(d, 0), inc(d, 0)]
+
+
+Scop: [inc(d, 0), inc(d, 0), inc(d, 0)]
+
+
+Solutia cu numarul 3
+Numarul de chei folosite este 7
+Cautarea a durat 0.023497819900512695 secunde
+Am generat in total 1597 noduri
+
+Initial: [inc(i, 1), inc(i, 1), inc(i, 1)]
+
+0) 		 incuietori: [inc(i, 1), inc(i, 1), inc(i, 1)]
+1) 		 incuietori: [inc(i, 1), inc(d, 0), inc(i, 1)]
+2) 		 incuietori: [inc(i, 2), inc(i, 1), inc(d, 0)]
+3) 		 incuietori: [inc(i, 2), inc(d, 0), inc(d, 0)]
+4) 		 incuietori: [inc(i, 1), inc(i, 1), inc(d, 0)]
+5) 		 incuietori: [inc(i, 1), inc(d, 0), inc(d, 0)]
+6) 		 incuietori: [inc(d, 0), inc(i, 1), inc(d, 0)]
+7) 		 incuietori: [inc(d, 0), inc(d, 0), inc(d, 0)]
 
 
 Scop: [inc(d, 0), inc(d, 0), inc(d, 0)]
