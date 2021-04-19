@@ -1,6 +1,6 @@
 Solutia cu numarul 1
 Numarul de chei folosite este 3
-Cautarea a durat 0.00032138824462890625 secunde
+Cautarea a durat 0.00041556358337402344 secunde
 Am generat in total 42 noduri
 
 Initial: [inc(i, 1), inc(i, 1), inc(i, 1)]
@@ -16,7 +16,7 @@ Scop: [inc(d, 0), inc(d, 0), inc(d, 0)]
 
 Solutia cu numarul 2
 Numarul de chei folosite este 3
-Cautarea a durat 0.0004999637603759766 secunde
+Cautarea a durat 0.0005800724029541016 secunde
 Am generat in total 62 noduri
 
 Initial: [inc(i, 1), inc(i, 1), inc(i, 1)]
@@ -32,7 +32,7 @@ Scop: [inc(d, 0), inc(d, 0), inc(d, 0)]
 
 Solutia cu numarul 3
 Numarul de chei folosite este 7
-Cautarea a durat 0.023497819900512695 secunde
+Cautarea a durat 0.02568340301513672 secunde
 Am generat in total 1597 noduri
 
 Initial: [inc(i, 1), inc(i, 1), inc(i, 1)]
