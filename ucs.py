@@ -3,8 +3,9 @@ import time
 
 class Lacat:
     # clasa pentru un lacat -> nodul grafului din problema noastra
-    def __init__(self, incuietori):
+    def __init__(self, incuietori, ultima_cheie):
         self.incuietori = incuietori
+        self.ultima_cheie = ultima_cheie
 
     def __eq__(self, other):
         return self.incuietori == other.incuietori
@@ -37,7 +38,7 @@ class Lacat:
 
             new_incuietori.append((stare, nr_incuieri))
 
-        return Lacat(new_incuietori)
+        return Lacat(new_incuietori, cheie)
 
 class NodParcurgere:
     # informatii despre un nod din arborele parcurgerii
@@ -103,7 +104,7 @@ class Alg:
         start = [('i', 1)] * len(lista_chei[0])
         scop = [('d', 0)] * len(lista_chei[0])
 
-        self.gr = Graf(Lacat(start), Lacat(scop), lista_chei)
+        self.gr = Graf(Lacat(start, []), Lacat(scop, []), lista_chei)
 
     def __get_time(self):
         # functie care intoarce durata de la inceperea algoritmului
@@ -119,8 +120,10 @@ class Alg:
 
         self.fout.write("Initial: " + str(drum[0]) + "\n\n")
 
-        for idx in range(len(drum)):
-            self.fout.write(str(idx) + ") \t\t incuietori: " + str(drum[idx]) + "\n")
+        for idx in range(len(drum) - 1):
+            self.fout.write(str(idx) + ")\t\tIncuietori: " + str(drum[idx]) + "\n")
+            self.fout.write("\t\tAm folosit cheia: " + str(drum[idx + 1].ultima_cheie))
+            self.fout.write("\n\t\tPentru a ajunge la: " + str(drum[idx + 1]) + "\n")
 
         self.fout.write("\n\nScop: " + str(drum[-1]) + "\n\n\n")
 
