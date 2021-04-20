@@ -136,6 +136,7 @@ class Alg:
         self.nsol = int(parser.parse_args().nr_solutii)
         self.timeout = float(parser.parse_args().timeout)
         self.no_nodes = 0
+        self.max_no_nodes = 0
         self.tip_euristica = int(parser.parse_args().tip_euristica)
 
     def __del__(self):
@@ -161,7 +162,8 @@ class Alg:
         self.fout.write("Solutia cu numarul " + str(sol_crt) + "\n")
         self.fout.write("Numarul de chei folosite este " + str(len(drum) - 1) + "\n")
         self.fout.write("Cautarea a durat " + str(self.__get_time()) + " secunde\n")
-        self.fout.write("Am generat in total " + str(self.no_nodes) + " noduri\n\n")
+        self.fout.write("Am generat in total " + str(self.no_nodes) + " noduri\n")
+        self.fout.write("Numarul maxim de noduri in memorie la un moment de timp a fost: " + str(self.max_no_nodes) + "\n\n")
 
         self.fout.write("Initial: " + str(drum[0]) + "\n\n")
 
@@ -205,6 +207,9 @@ class Alg:
 
         while len(q) > 0:
             curr_node = q.pop(0)
+
+            if len(q) > self.max_no_nodes:
+                self.max_no_nodes = len(q)
 
             if self.__timeout():
                 self.afiseaza_timeout(sol_crt + 1)

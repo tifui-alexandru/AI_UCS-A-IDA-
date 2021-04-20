@@ -136,6 +136,8 @@ class Alg:
         self.nsol = int(parser.parse_args().nr_solutii)
         self.timeout = float(parser.parse_args().timeout)
         self.no_nodes = 0
+        self.max_nodes = 0
+        self.curr_no_nodes = 0
         self.tip_euristica = int(parser.parse_args().tip_euristica)
 
     def __del__(self):
@@ -161,7 +163,8 @@ class Alg:
         self.fout.write("Solutia cu numarul " + str(sol_crt) + "\n")
         self.fout.write("Numarul de chei folosite este " + str(len(drum) - 1) + "\n")
         self.fout.write("Cautarea a durat " + str(self.__get_time()) + " secunde\n")
-        self.fout.write("Am generat in total " + str(self.no_nodes) + " noduri\n\n")
+        self.fout.write("Am generat in total " + str(self.no_nodes) + " noduri\n")
+        self.fout.write("Numarul maxim de noduri in memorie la un moment de timp a fost: " + str(self.max_no_nodes) + "\n\n")
 
         self.fout.write("Initial: " + str(drum[0]) + "\n\n")
 
@@ -192,32 +195,41 @@ class Alg:
         return False
 
     def construieste_drum(self, curr_node, limita):
+        self.curr_no_nodes += 1
+        if self.curr_no_nodes > self.max_nodes:
+            self.max_nodes = self.curr_no_nodes
+
         if self.gr.scop == curr_node.info:
-            return (True, 0)
+            self.curr_no_nodes -= 1
+            return (True, 0, curr_node)
 
         if curr_node.total > limita:
-            return (False, curr_node.total)
+            self.curr_no_nodes -= 1
+            return (False, curr_node.total, None)
 
         minn = float('inf')
 
         for lacat in self.gr.genereaza_succesori(curr_node.info):
             next_node = NodParcurgere(lacat, curr_node, curr_node.cost + 1, self.gr.calculeaza_euristica(lacat, self.tip_euristica))
-            (ajuns, lim) = self.construieste_drum(next_node, limita)
+            (ajuns, lim, ultimul_nod) = self.construieste_drum(next_node, limita)
             if ajuns:
-                return (True, 0)
+                self.curr_no_nodes -= 1
+                return (True, 0, ultimul_nod)
             minn = min(minn, lim)
 
-        return (False, minn)
+        self.curr_no_nodes -= 1
+        return (False, minn, None)
 
     def ida_star(self):
         nivel = self.gr.calculeaza_euristica(self.gr.start, self.tip_euristica)
         nod_start = NodParcurgere(self.gr.start, None, 0, self.gr.calculeaza_euristica(self.gr.start, self.tip_euristica))
         sol_crt = 0
+        self.start_time = time.time()
 
         while True:
-            (ajuns, lim) = self.construieste_drum(nod_start, nivel)
+            (ajuns, lim, ultimul_nod) = self.construieste_drum(nod_start, nivel)
             if ajuns:
-                self.afiseaza_drum(curr_node.obtine_drum(), sol_crt + 1)
+                self.afiseaza_drum(ultimul_nod.obtine_drum(), sol_crt + 1)
                 sol_crt += 1
                 if self.nsol == sol_crt:
                     break
