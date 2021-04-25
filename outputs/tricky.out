@@ -1,25 +1,22 @@
 Solutia cu numarul 1
-Numarul de chei folosite este 4
-Cautarea a durat 4.172325134277344e-05 secunde
-Am generat in total 9 noduri
-Numarul maxim de noduri in memorie la un moment de timp a fost: 5
+Numarul de chei folosite este 3
+Cautarea a durat 0.0003981590270996094 secunde
+Am generat in total 16 noduri
+Numarul maxim de noduri in memorie la un moment de timp a fost: 16
 
-Initial: [inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1)]
+Initial: [inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1)]
 
-0)		Incuietori: [inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1)]
-		Am folosit cheia: dgdg
-		Pentru a ajunge la: [inc(d, 0), inc(i, 1), inc(d, 0), inc(i, 1)]
-1)		Incuietori: [inc(d, 0), inc(i, 1), inc(d, 0), inc(i, 1)]
-		Am folosit cheia: idgg
-		Pentru a ajunge la: [inc(i, 1), inc(d, 0), inc(d, 0), inc(i, 1)]
-2)		Incuietori: [inc(i, 1), inc(d, 0), inc(d, 0), inc(i, 1)]
-		Am folosit cheia: dgdg
-		Pentru a ajunge la: [inc(d, 0), inc(d, 0), inc(d, 0), inc(i, 1)]
-3)		Incuietori: [inc(d, 0), inc(d, 0), inc(d, 0), inc(i, 1)]
-		Am folosit cheia: dggd
-		Pentru a ajunge la: [inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0)]
+0)		Incuietori: [inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1)]
+		Am folosit cheia: dddggggddgg
+		Pentru a ajunge la: [inc(d, 0), inc(d, 0), inc(d, 0), inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1), inc(d, 0), inc(d, 0), inc(i, 1), inc(i, 1)]
+1)		Incuietori: [inc(d, 0), inc(d, 0), inc(d, 0), inc(i, 1), inc(i, 1), inc(i, 1), inc(i, 1), inc(d, 0), inc(d, 0), inc(i, 1), inc(i, 1)]
+		Am folosit cheia: iiiddddgggg
+		Pentru a ajunge la: [inc(i, 1), inc(i, 1), inc(i, 1), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(i, 1), inc(i, 1)]
+2)		Incuietori: [inc(i, 1), inc(i, 1), inc(i, 1), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(i, 1), inc(i, 1)]
+		Am folosit cheia: dddggggggdd
+		Pentru a ajunge la: [inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0)]
 
 
-Scop: [inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0)]
+Scop: [inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0), inc(d, 0)]
 
 
