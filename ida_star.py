@@ -164,7 +164,7 @@ class Alg:
         self.fout.write("Numarul de chei folosite este " + str(len(drum) - 1) + "\n")
         self.fout.write("Cautarea a durat " + str(self.__get_time()) + " secunde\n")
         self.fout.write("Am generat in total " + str(self.no_nodes) + " noduri\n")
-        self.fout.write("Numarul maxim de noduri in memorie la un moment de timp a fost: " + str(self.max_no_nodes) + "\n\n")
+        self.fout.write("Numarul maxim de noduri in memorie la un moment de timp a fost: " + str(self.max_nodes) + "\n\n")
 
         self.fout.write("Initial: " + str(drum[0]) + "\n\n")
 
@@ -196,6 +196,7 @@ class Alg:
 
     def construieste_drum(self, curr_node, limita):
         self.curr_no_nodes += 1
+        self.no_nodes += 1
         if self.curr_no_nodes > self.max_nodes:
             self.max_nodes = self.curr_no_nodes
 
@@ -221,12 +222,21 @@ class Alg:
         return (False, minn, None)
 
     def ida_star(self):
+        if self.__dead_state():
+            # daca nu putem ajunge la solutie ne optim
+            self.fout.write("Nu putem ajunge la solutie folosind cheile date\n")
+            return
+
         nivel = self.gr.calculeaza_euristica(self.gr.start, self.tip_euristica)
         nod_start = NodParcurgere(self.gr.start, None, 0, self.gr.calculeaza_euristica(self.gr.start, self.tip_euristica))
         sol_crt = 0
         self.start_time = time.time()
 
         while True:
+            if self.__timeout():
+                self.afiseaza_timeout(sol_crt + 1)
+                break
+
             (ajuns, lim, ultimul_nod) = self.construieste_drum(nod_start, nivel)
             if ajuns:
                 self.afiseaza_drum(ultimul_nod.obtine_drum(), sol_crt + 1)

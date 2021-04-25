@@ -1,3 +1,22 @@
-iid
-did
-gdg 
+Solutia cu numarul 1
+Numarul de chei folosite este 3
+Cautarea a durat 6.4849853515625e-05 secunde
+Am generat in total 9 noduri
+Numarul maxim de noduri in memorie la un moment de timp a fost: 4
+
+Initial: [inc(i, 1), inc(i, 1), inc(i, 1)]
+
+0)		Incuietori: [inc(i, 1), inc(i, 1), inc(i, 1)]
+		Am folosit cheia: did
+		Pentru a ajunge la: [inc(d, 0), inc(i, 2), inc(d, 0)]
+1)		Incuietori: [inc(d, 0), inc(i, 2), inc(d, 0)]
+		Am folosit cheia: gdg
+		Pentru a ajunge la: [inc(d, 0), inc(i, 1), inc(d, 0)]
+2)		Incuietori: [inc(d, 0), inc(i, 1), inc(d, 0)]
+		Am folosit cheia: gdg
+		Pentru a ajunge la: [inc(d, 0), inc(d, 0), inc(d, 0)]
+
+
+Scop: [inc(d, 0), inc(d, 0), inc(d, 0)]
+
+
